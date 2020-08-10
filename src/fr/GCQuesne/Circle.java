@@ -3,16 +3,18 @@ package fr.GCQuesne;
 import java.awt.*;
 
 public class Circle extends ShapeGen {
-  int diameter = 70;
-  int positionX = 30;
-  int positionY = 400;
-  Color color = Color.BLUE;
+  static int positionX;
+  static int positionY;
+  int diameter;
 
-  protected Circle(Graphics g) {
-    setReferenceX(positionX);
-    setReferenceY(positionY);
-    g.setColor(color);
+  protected Circle(int referenceX, int referenceY, int diameter, String color, Graphics g) {
+    super(referenceX, referenceY);
+    this.diameter = diameter;
+    positionX = referenceX;
+    positionY = referenceY;
+    g.setColor(colorSelected(color));
     g.fillOval(positionX, positionY, diameter, diameter);
-
   }
+
+
 }
