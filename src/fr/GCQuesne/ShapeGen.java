@@ -1,27 +1,32 @@
 package fr.GCQuesne;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ShapeGen {
   private int referenceY;
-
   private int referenceX;
+  ArrayList<ShapeGen> myTab = new ArrayList<>();
 
   public ShapeGen() {
 
   }
 
-  public void draw(Graphics g) {
-    Circle myCircle = new Circle(g);
-    new Rectangle(g);
-    Triangle myTriangle = new Triangle(g);
+  private ArrayList createArrayShape(Graphics graphics) {
+    myTab.add(new Circle(graphics));
+    myTab.add(new Rectangle(graphics));
+    myTab.add(new Triangle(graphics));
 
-    //System.out.println(myCircle.positionX);
-    System.out.println("cercle : " + myCircle.getReferenceX());
-    //System.out.println(myCircle.positionY);
-    System.out.println("cercle : " + myCircle.getReferenceY());
-    System.out.println("triangle" + myTriangle.getReferenceX());
-    System.out.println("triangle" + myTriangle.getReferenceY());
+    return myTab;
+  }
+
+  public void draw(Graphics g) {
+    ArrayList myTabPrint = createArrayShape(g);
+
+    for (int i = 0; i < myTabPrint.size(); i++) {
+      myTabPrint.get(i);
+    }
+
   }
 
   public int getReferenceY() {
