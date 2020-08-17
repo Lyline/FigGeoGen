@@ -3,19 +3,11 @@ package fr.GCQuesne;
 import java.awt.*;
 
 public class Rectangle extends ShapeGen {
-  static int positionX;
-  static int positionY;
-  int height;
-  int width;
 
-  protected Rectangle(int referenceX, int referenceY, int height, int width, String color, Graphics g) {
-    super(referenceX, referenceY);
-    this.height = height;
-    this.width = width;
-    positionX = referenceX;
-    positionY = referenceY;
+  protected Rectangle(String type, String color, int[] refPointXY, int[] dimension, Graphics g) {
+    super(type, color, refPointXY, dimension);
+
     g.setColor(colorSelected(color));
-    g.fillRect(positionX, positionY, width, height);
+    g.fillRect(this.referenceX, this.referenceY, this.x1DiameterWidthShape, this.y1HeightShape);
   }
-
 }
