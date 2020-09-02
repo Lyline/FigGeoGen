@@ -13,4 +13,14 @@ public class DrawSwing extends JPanel {
     super.paintComponent(g);
     new ShapeGen().draw(g);
   }
+
+  protected void moveLeft() {
+    ShapeGen.refShape = 0;
+    repaint();
+  }
+
+  protected void moveRight(int selectRightPoint) {
+    ShapeGen.refShape = selectRightPoint;
+    repaint();
+  }
 }

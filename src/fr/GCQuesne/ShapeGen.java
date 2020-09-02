@@ -5,11 +5,18 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class ShapeGen {
-  protected int referenceX, referenceY,
-      x1DiameterWidthShape, y1HeightShape,
-      x2, y2,
-      x3, y3,
-      initialPositionX, initialPositionY;
+  protected static int referenceX;
+  protected static int refShape = -1;
+  protected int referenceY;
+  protected int x1DiameterWidthShape;
+  protected int y1HeightShape;
+  protected int x2;
+  protected int y2;
+  protected int x3;
+  protected int y3;
+  protected int initialPositionX;
+  protected int initialPositionY;
+  ;
 
   protected String typeShape, colorShape;
   protected int[] refPointShape;
@@ -29,6 +36,11 @@ public class ShapeGen {
 
     this.typeShape = type;
     this.colorShape = color;
+
+    this.referenceX = refPointXY[0];
+    this.referenceY = refPointXY[1];
+    this.initialPositionX = refPointXY[0];
+    this.initialPositionY = refPointXY[1];
 
     switch (type) {
       case "circle":
@@ -53,13 +65,16 @@ public class ShapeGen {
         System.out.println("Forme inconnue");
     }
 
-    this.referenceX = refPointXY[0];
-    this.referenceY = refPointXY[1];
-    this.initialPositionX = refPointXY[0];
-    this.initialPositionY = refPointXY[1];
   }
 
-  public static Color colorSelected(String value) {
+  private ArrayList<ShapeGen> createArrayShape(Graphics graphics) {
+    myTab.add(new Rectangle("rectangle", "cyan", new int[]{200, 150}, new int[]{30, 50}, graphics));
+    myTab.add(new Circle("circle", "blue", new int[]{100, 400}, new int[]{20}, graphics));
+    myTab.add(new Triangle("triangle", "magenta", new int[]{100, 300}, new int[]{50, 350, 100, 300, 150, 350}, graphics));
+    return myTab;
+  }
+
+  protected Color colorSelected(String value) {
     Color colorTest;
     try {
       Field field = Class.forName("java.awt.Color").getField(value);
@@ -70,11 +85,11 @@ public class ShapeGen {
     return colorTest;
   }
 
-  private ArrayList<ShapeGen> createArrayShape(Graphics graphics) {
-    myTab.add(new Rectangle("rectangle", "cyan", new int[]{200, 150}, new int[]{30, 50}, graphics));
-    myTab.add(new Circle("circle", "blue", new int[]{100, 400}, new int[]{20}, graphics));
-    myTab.add(new Triangle("triangle", "magenta", new int[]{100, 300}, new int[]{50, 350, 100, 300, 150, 350}, graphics));
-    return myTab;
+  protected int selectRightPoint() {
+    refShape = 0;
+    for (ShapeGen element : myTab)
+      if (element.referenceX > refShape) refShape = element.referenceX;
+    return refShape;
   }
 
   public void draw(Graphics g) {
