@@ -3,6 +3,14 @@ package fr.GCQuesne;
 public class AppWindow {
 
   public static void main(String[] args) {
-    System.out.println("hello world");
+    ShapeGen monTriangle = new ShapeGen("Triangle", "Blue",
+        30, 50, 45, 100, 60, 50);
+
+    ShapeGen monCercle = new ShapeGen("Cercle", "red",
+        10, 80, 100, 100);
+
+    ShapeGen monRectagle = new ShapeGen("Rectangle", "Green",
+        200, 20, 100, 88);
+
   }
 }
