@@ -1,5 +1,7 @@
 package fr.GCQuesne;
 
+import static fr.GCQuesne.ShapeGen.myTab;
+
 public class AppWindow {
 
   public static void main(String[] args) {
@@ -12,5 +14,8 @@ public class AppWindow {
     ShapeGen monRectagle = new ShapeGen("Rectangle", "Green",
         200, 20, 100, 88);
 
+    myTab.add(monTriangle);
+    myTab.add(monCercle);
+    myTab.add(monRectagle);
   }
 }

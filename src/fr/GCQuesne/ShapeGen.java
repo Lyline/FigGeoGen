@@ -1,5 +1,7 @@
 package fr.GCQuesne;
 
+import java.util.ArrayList;
+
 public class ShapeGen {
   int x1, y1,
       x2, y2,
@@ -7,6 +9,9 @@ public class ShapeGen {
       initialX;
   String typeShape, colorShape;
   String shapeState;
+
+  //Tableau qui regroupe toutes les figures
+  static ArrayList<ShapeGen> myTab = new ArrayList<>();
 
   /**
    * Construit une figure géométrique de type générique, avec des coordonnées de position pour chaque point et une
@@ -68,6 +73,8 @@ public class ShapeGen {
 
     shapeState = "default";
   }
+
+
 }
 
 
