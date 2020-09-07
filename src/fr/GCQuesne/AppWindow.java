@@ -1,28 +1,23 @@
 package fr.GCQuesne;
 
-import static fr.GCQuesne.ShapeGen.*;
+import java.io.IOException;
 
 public class AppWindow {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
 
-    Triangle myTriangle = new Triangle(150, 100, 200, 30, 250, 100, "Cyan");
-    Circle myCircle = new Circle(100, 50, 80, "Red");
-    Rectangle myRectangle = new Rectangle(300, 300, 250, 100, "Green");
+    ReadMyFile myFile = new ReadMyFile();
 
 
-    myTab.add(myRectangle);
-    myTab.add(myCircle);
-    myTab.add(myTriangle);
+    myFile.openFile();
+    String chaine;
+    do {
+      chaine = myFile.readFile();
+      if (chaine != null) System.out.println(chaine);
+    } while (chaine != null);
+    myFile.closeFile();
 
-    printShapeTab();
 
-    System.out.println("---- alignement a gauche ----");
-    leftAlign();
-    printShapeTab();
-
-    System.out.println("---- alignement a droite ----");
-    rightAlign();
-    printShapeTab();
   }
+
 }
