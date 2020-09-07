@@ -3,12 +3,13 @@ package fr.GCQuesne;
 import java.util.ArrayList;
 
 public class ShapeGen {
+  static String shapeState;
   int x1, y1,
       x2, y2,
       x3, y3,
-      initialX;
-  String typeShape, colorShape;
-  String shapeState;
+      initialX1, initialX2, initialX3;
+  String colorShape;
+  String typeShape;
 
   //Tableau qui regroupe toutes les figures
   static ArrayList<ShapeGen> myTab = new ArrayList<>();
@@ -17,7 +18,6 @@ public class ShapeGen {
    * Construit une figure géométrique de type générique, avec des coordonnées de position pour chaque point et une
    * couleur
    *
-   * @param shape type de la figure
    * @param color couleur de la figure
    * @param x1    abscisse du premier point
    * @param y1    ordonnée du premier point
@@ -26,7 +26,7 @@ public class ShapeGen {
    * @param x3    abscisse du troisième point
    * @param y3    ordonnée du troisième point
    */
-  public ShapeGen(String shape, String color,
+  public ShapeGen(String color,
                   int x1, int y1,
                   int x2, int y2,
                   int x3, int y3) {
@@ -38,9 +38,10 @@ public class ShapeGen {
     this.x3 = x3;
     this.y3 = y3;
 
-    this.initialX = x1;
+    this.initialX1 = this.x1;
+    this.initialX2 = this.x2;
+    this.initialX3 = this.x3;
 
-    this.typeShape = shape;
     this.colorShape = color;
 
     shapeState = "default";
@@ -50,14 +51,13 @@ public class ShapeGen {
    * Construit une figure géométrique de type cercle ou rectangle, avec des coordonnées de position de son origine (en
    * haut à gauche), des dimensions et une couleur
    *
-   * @param shape  type de la figure
    * @param color  couleur de la figure
    * @param x      abscisse de son origine
    * @param y      ordonnée de son origine
    * @param width  longueur de la figure
    * @param height hauteur de la figure
    */
-  public ShapeGen(String shape, String color,
+  public ShapeGen(String color,
                   int x, int y,
                   int width, int height) {
 
@@ -66,14 +66,90 @@ public class ShapeGen {
     this.x2 = width;
     this.y2 = height;
 
-    this.initialX = x1;
+    this.initialX1 = x1;
 
-    this.typeShape = shape;
-    this.colorShape = color;
+    colorShape = color;
 
     shapeState = "default";
   }
 
+  /**
+   * Imprime le contenu d'une figure (coordonnées, couleur et état)
+   *
+   * @param shapeGen nom de la figure à imprimer
+   */
+  public static void printShape(ShapeGen shapeGen) {
+    System.out.println("type : " + shapeGen.typeShape + " color : " + shapeGen.colorShape);
+    System.out.println("x1 : " + shapeGen.x1 + " y1 : " + shapeGen.y1);
+    System.out.println("x2 : " + shapeGen.x2 + " y2 : " + shapeGen.y2);
+    System.out.println("x3 : " + shapeGen.x3 + " y3 : " + shapeGen.y3);
+    System.out.println("state : " + shapeState + "\n");
+  }
+
+  /**
+   * Imprime l'ensemble du tableau contenant les figures instanciées
+   */
+  public static void printShapeTab() {
+    for (ShapeGen element : myTab) printShape(element);
+  }
+
+  /**
+   * Aligne toutes les figures à gauche de la fenêtre en remplaçant la valeur de l'abscisse du premier point ou du point
+   * de l'origine par 0 (x1 = 0)
+   */
+  public static void leftAlign() {
+    for (ShapeGen element : myTab) {
+      int distanceX = element.x1;
+      shapeState = "gauche";
+      element.x1 = 0;
+
+      if (element.typeShape.equalsIgnoreCase("Triangle")) {
+        element.x2 -= distanceX;
+        element.x3 -= distanceX;
+      }
+    }
+  }
+
+  /**
+   * Cherche et renvoie la valeur de l'abscisse de la figure située le plus à droite en parcourant le tableau des
+   * figures instanciées
+   *
+   * @return valeur de l'abscisse la plus élevée
+   */
+  private static int searchRightPoint() {
+    int rightPoint = 0;
+    for (ShapeGen element : myTab)
+      if (element.initialX1 > rightPoint) rightPoint = element.initialX1;
+      else if (element.typeShape.equalsIgnoreCase("triangle")
+          &&
+          element.initialX2 > rightPoint) rightPoint = element.initialX2;
+
+    return rightPoint;
+  }
+
+  /**
+   * Aligne toutes les figures par rapport à la figure placée le plus à droite de la fenêtre
+   */
+  public static void rightAlign() {
+    int rightPointX = searchRightPoint();
+    for (ShapeGen element : myTab) {
+      shapeState = "droite";
+
+      if (element.typeShape.equalsIgnoreCase("Triangle") && element.initialX2 == rightPointX) {
+        element.x1 = element.initialX1;
+        element.x2 = element.initialX2;
+        element.x3 = element.initialX3;
+      } else if (element.typeShape.equalsIgnoreCase("Triangle")) {
+        element.x1 = element.initialX1;
+        element.x2 = element.initialX2;
+        element.x3 = element.initialX3;
+
+        element.x1 += rightPointX - element.initialX2;
+        element.x2 = rightPointX;
+        element.x3 += rightPointX - element.initialX2;
+      } else element.x1 = rightPointX;
+    }
+  }
 
 }
 

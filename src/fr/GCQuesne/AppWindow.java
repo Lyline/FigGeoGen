@@ -1,21 +1,28 @@
 package fr.GCQuesne;
 
-import static fr.GCQuesne.ShapeGen.myTab;
+import static fr.GCQuesne.ShapeGen.*;
 
 public class AppWindow {
 
   public static void main(String[] args) {
-    ShapeGen monTriangle = new ShapeGen("Triangle", "Blue",
-        30, 50, 45, 100, 60, 50);
 
-    ShapeGen monCercle = new ShapeGen("Cercle", "red",
-        10, 80, 100, 100);
+    Triangle myTriangle = new Triangle(150, 100, 200, 30, 250, 100, "Cyan");
+    Circle myCircle = new Circle(100, 50, 80, "Red");
+    Rectangle myRectangle = new Rectangle(300, 300, 250, 100, "Green");
 
-    ShapeGen monRectagle = new ShapeGen("Rectangle", "Green",
-        200, 20, 100, 88);
 
-    myTab.add(monTriangle);
-    myTab.add(monCercle);
-    myTab.add(monRectagle);
+    myTab.add(myRectangle);
+    myTab.add(myCircle);
+    myTab.add(myTriangle);
+
+    printShapeTab();
+
+    System.out.println("---- alignement a gauche ----");
+    leftAlign();
+    printShapeTab();
+
+    System.out.println("---- alignement a droite ----");
+    rightAlign();
+    printShapeTab();
   }
 }
