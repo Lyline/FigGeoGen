@@ -1,3 +1,4 @@
-circle;blue;150;30;30;
-rectangle;red;80;90;190;75;
-triangle;cyan;50;300;100;200;150;300;
+circle;lightGray;150;30;80;
+rectangle;pink;80;120;80;75;
+triangle;green;50;300;100;200;150;300;
+circle;red;15;350;30;

@@ -3,15 +3,15 @@ package fr.GCQuesne;
 import javax.swing.*;
 import java.awt.*;
 
-public class MyWindow extends JFrame {
-  private JPanel myPanel = new JPanel();
+public class MainWindow extends JFrame {
+  private DrawShape myPanel = new DrawShape();
   private ToolBar myToolBar = new ToolBar();
   private Container contentPane = getContentPane();
 
-  public MyWindow() {
+  public MainWindow() {
     setTitle("FigGeoGen");
     setSize(500, 800);
-    setLocationRelativeTo(null);
+    setLocation(1300, 200);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     myPanel.setBackground(Color.WHITE);
 

@@ -1,6 +1,10 @@
 package fr.GCQuesne;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import static fr.GCQuesne.ReadMyFile.myFile;
+import static java.lang.Integer.parseInt;
 
 public class ShapeGen {
   static String shapeState;
@@ -151,6 +155,41 @@ public class ShapeGen {
     }
   }
 
+  /**
+   * Crée un ArrayList d'objets ShapeGen à partir du fichier .txt
+   *
+   * @throws IOException Lecture impossible du fichier .txt
+   */
+  public static void createArrayShape() throws IOException {
+    String line;
+    String[] arrayShape;
+    String type;
+
+    myFile.openFile();
+
+    do {
+      line = myFile.readFile();
+
+      if (line != null) {
+        arrayShape = line.split(";");
+        type = arrayShape[0];
+        switch (type) {
+          case "circle":
+            myTab.add(new Circle(parseInt(arrayShape[2]), parseInt(arrayShape[3]), parseInt(arrayShape[4]), arrayShape[1]));
+            break;
+          case "rectangle":
+            myTab.add(new Rectangle(parseInt(arrayShape[2]), parseInt(arrayShape[3]), parseInt(arrayShape[4]), parseInt(arrayShape[4]), arrayShape[1]));
+            break;
+          case "triangle":
+            myTab.add(new Triangle(parseInt(arrayShape[2]), parseInt(arrayShape[3]), parseInt(arrayShape[4]), parseInt(arrayShape[5]), parseInt(arrayShape[6]), parseInt(arrayShape[7]), arrayShape[1]));
+            break;
+          default:
+            System.out.println("connais pas cette forme");
+        }
+      }
+    } while (line != null);
+    myFile.closeFile();
+  }
 }
 
 
