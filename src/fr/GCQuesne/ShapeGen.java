@@ -158,12 +158,14 @@ public class ShapeGen {
   /**
    * Crée un ArrayList d'objets ShapeGen à partir du fichier .txt
    *
+   * @return ArrayList des formes géométriques
    * @throws IOException Lecture impossible du fichier .txt
    */
-  public static void createArrayShape() throws IOException {
+  public static ArrayList<ShapeGen> createArrayShape() throws IOException {
     String line;
     String[] arrayShape;
     String type;
+    ArrayList<ShapeGen> tempList = new ArrayList<>();
 
     myFile.openFile();
 
@@ -175,13 +177,13 @@ public class ShapeGen {
         type = arrayShape[0];
         switch (type) {
           case "circle":
-            myTab.add(new Circle(parseInt(arrayShape[2]), parseInt(arrayShape[3]), parseInt(arrayShape[4]), arrayShape[1]));
+            tempList.add(new Circle(parseInt(arrayShape[2]), parseInt(arrayShape[3]), parseInt(arrayShape[4]), arrayShape[1]));
             break;
           case "rectangle":
-            myTab.add(new Rectangle(parseInt(arrayShape[2]), parseInt(arrayShape[3]), parseInt(arrayShape[4]), parseInt(arrayShape[4]), arrayShape[1]));
+            tempList.add(new Rectangle(parseInt(arrayShape[2]), parseInt(arrayShape[3]), parseInt(arrayShape[4]), parseInt(arrayShape[4]), arrayShape[1]));
             break;
           case "triangle":
-            myTab.add(new Triangle(parseInt(arrayShape[2]), parseInt(arrayShape[3]), parseInt(arrayShape[4]), parseInt(arrayShape[5]), parseInt(arrayShape[6]), parseInt(arrayShape[7]), arrayShape[1]));
+            tempList.add(new Triangle(parseInt(arrayShape[2]), parseInt(arrayShape[3]), parseInt(arrayShape[4]), parseInt(arrayShape[5]), parseInt(arrayShape[6]), parseInt(arrayShape[7]), arrayShape[1]));
             break;
           default:
             System.out.println("connais pas cette forme");
@@ -189,6 +191,7 @@ public class ShapeGen {
       }
     } while (line != null);
     myFile.closeFile();
+    return tempList;
   }
 }
 

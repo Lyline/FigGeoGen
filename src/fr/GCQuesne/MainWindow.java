@@ -2,8 +2,13 @@ package fr.GCQuesne;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class MainWindow extends JFrame {
+import static fr.GCQuesne.ShapeGen.leftAlign;
+import static fr.GCQuesne.ShapeGen.rightAlign;
+
+public class MainWindow extends JFrame implements ActionListener {
   private DrawShape myPanel = new DrawShape();
   private ToolBar myToolBar = new ToolBar();
   private Container contentPane = getContentPane();
@@ -18,5 +23,18 @@ public class MainWindow extends JFrame {
     contentPane.add(myPanel, BorderLayout.CENTER);
     contentPane.add(myToolBar.create(), BorderLayout.SOUTH);
 
+    myToolBar.sceneButton.addActionListener(this);
+    myToolBar.formeButton.addActionListener(this);
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == myToolBar.sceneButton) {
+      leftAlign();
+    }
+    if (e.getSource() == myToolBar.formeButton) {
+      rightAlign();
+    }
+    repaint();
   }
 }
